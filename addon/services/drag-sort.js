@@ -20,7 +20,7 @@ export default class DragSortService extends Service.extend(EventedMixin) {
   isHorizontal = false;
 
   // ----- Custom methods -----
-  startDragging({additionalArgs, item, index, items, group, isHorizontal}) {
+  startDragging ({additionalArgs, item, index, items, group, isHorizontal}) {
     this.setProperties({
       isDragging   : true,
       isDraggingUp : false,
@@ -57,7 +57,7 @@ export default class DragSortService extends Service.extend(EventedMixin) {
     })
   }
 
-  draggingOver({group, index, items, isDraggingUp}) {
+  draggingOver ({group, index, items, isDraggingUp}) {
     // Ignore hovers over irrelevant groups
     if (group !== this.group) return
 
@@ -87,7 +87,7 @@ export default class DragSortService extends Service.extend(EventedMixin) {
     })
   }
 
-  dragEntering({group, items, isHorizontal, targetArgs, targetIndex = 0}) {
+  dragEntering ({group, items, isHorizontal, targetArgs, targetIndex = 0}) {
     // Ignore entering irrelevant groups
     if (group !== this.group) return
 
@@ -120,7 +120,7 @@ export default class DragSortService extends Service.extend(EventedMixin) {
     })
   }
 
-  endDragging({action}) {
+  endDragging ({action}) {
     const sourceArgs   = this.sourceArgs
     const sourceList   = this.sourceList
     const sourceIndex  = this.sourceIndex
@@ -191,7 +191,7 @@ export default class DragSortService extends Service.extend(EventedMixin) {
     })
   }
 
-  _reset() {
+  _reset () {
     this.setProperties({
       isDragging   : false,
       isDraggingUp : null,

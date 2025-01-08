@@ -1,8 +1,8 @@
-import { attributeBindings, classNameBindings, layout as templateLayout } from '@ember-decorators/component';
-import { observes } from '@ember-decorators/object';
-import { computed } from '@ember/object';
-import { inject as service } from '@ember/service';
-import { reads, not } from '@ember/object/computed';
+import { attributeBindings, classNameBindings, layout as templateLayout } from '@ember-decorators/component'
+import { observes } from '@ember-decorators/object'
+import { computed } from '@ember/object'
+import { inject as service } from '@ember/service'
+import { reads, not } from '@ember/object/computed'
 // ----- Ember modules -----
 import Component from '@ember/component'
 import { assert }  from '@ember/debug'
@@ -83,7 +83,7 @@ export default class DragSortItem extends Component {
 
   // ----- Computed properties -----
   @computed('draggingEnabled', 'handle')
-  get draggable() {
+  get draggable () {
     const handle          = this.get('handle')
     const draggingEnabled = this.get('draggingEnabled')
 
@@ -91,7 +91,7 @@ export default class DragSortItem extends Component {
   }
 
   @computed('dragSort.isDragging', 'items', 'sourceList', 'index', 'sourceIndex')
-  get isDragged() {
+  get isDragged () {
     const isDragging  = this.get('dragSort.isDragging')
     const items       = this.get('items')
     const sourceList  = this.get('sourceList')
@@ -110,7 +110,7 @@ export default class DragSortItem extends Component {
     'isDragged',
     'sourceOnly'
   )
-  get isDraggingOver() {
+  get isDraggingOver () {
     const isDragging  = this.get('dragSort.isDragging')
     const items       = this.get('items')
     const targetList  = this.get('targetList')
@@ -123,7 +123,7 @@ export default class DragSortItem extends Component {
   }
 
   @computed('index', 'items.[]')
-  get isLast() {
+  get isLast () {
     const index = this.get('index')
     const count = this.get('items.length')
 
@@ -131,7 +131,7 @@ export default class DragSortItem extends Component {
   }
 
   @computed('isDraggingOver', 'isDraggingUp', 'sourceOnly')
-  get shouldShowPlaceholderBefore() {
+  get shouldShowPlaceholderBefore () {
     const isDraggingOver = this.get('isDraggingOver')
     const isDraggingUp   = this.get('isDraggingUp')
     const sourceOnly     = this.get('sourceOnly')
@@ -140,7 +140,7 @@ export default class DragSortItem extends Component {
   }
 
   @computed('isDraggingOver', 'isDraggingUp', 'sourceOnly')
-  get shouldShowPlaceholderAfter() {
+  get shouldShowPlaceholderAfter () {
     const isDraggingOver = this.get('isDraggingOver')
     const isDraggingUp   = this.get('isDraggingUp')
     const sourceOnly     = this.get('sourceOnly')
@@ -149,7 +149,7 @@ export default class DragSortItem extends Component {
   }
 
   // ----- Overridden methods -----
-  didInsertElement() {
+  didInsertElement () {
     // Consume properties for observers to act
     this.getProperties(
       'shouldShowPlaceholderBefore',
@@ -157,7 +157,7 @@ export default class DragSortItem extends Component {
     )
   }
 
-  dragStart(event) {
+  dragStart (event) {
     // Ignore irrelevant drags
     if (!this.get('draggingEnabled')) return
 
@@ -190,7 +190,7 @@ export default class DragSortItem extends Component {
     this.startDragging(event)
   }
 
-  dragEnd(event) {
+  dragEnd (event) {
     // Ignore irrelevant drags
     if (!this.get('dragSort.isDragging')) return
 
@@ -201,11 +201,11 @@ export default class DragSortItem extends Component {
   }
 
   // Required for Firefox. http://stackoverflow.com/a/32592759/901944
-  drop(event) {
+  drop (event) {
     event.preventDefault()
   }
 
-  dragOver(event) {
+  dragOver (event) {
     // Ignore irrelevant drags
     if (
       !this.get('dragSort.isDragging')
@@ -224,14 +224,14 @@ export default class DragSortItem extends Component {
     this.draggingOver(event)
   }
 
-  dragEnter(event) {
+  dragEnter (event) {
     if (!this.get('dragSort.isDragging')) return
     // Without this, dragOver would not fire in IE11. http://mereskin.github.io/dnd/
     event.preventDefault()
   }
 
   // ----- Custom methods -----
-  startDragging() {
+  startDragging () {
     this.collapse()
 
     const additionalArgs = this.get('additionalArgs')
@@ -245,7 +245,7 @@ export default class DragSortItem extends Component {
     dragSort.startDragging({additionalArgs, item, index, items, group, isHorizontal})
   }
 
-  endDragging() {
+  endDragging () {
     this.restore()
 
     const action   = this.get('dragEndAction')
@@ -254,7 +254,7 @@ export default class DragSortItem extends Component {
     dragSort.endDragging({action})
   }
 
-  draggingOver(event) {
+  draggingOver (event) {
     const sourceOnly = this.get('sourceOnly')
 
     if (sourceOnly) {
@@ -308,7 +308,7 @@ export default class DragSortItem extends Component {
     dragSort.draggingOver({group, index, items, isDraggingUp})
   }
 
-  collapse() {
+  collapse () {
     // The delay is necessary for HTML classes to update with a delay.
     // Otherwise, dragging is finished immediately.
     next(() => {
@@ -317,7 +317,7 @@ export default class DragSortItem extends Component {
     })
   }
 
-  restore() {
+  restore () {
     // The delay is necessary for HTML class to update with a delay.
     // Otherwise, dragging is finished immediately.
     next(() => {
@@ -326,7 +326,7 @@ export default class DragSortItem extends Component {
     })
   }
 
-  isHandleUsed(target) {
+  isHandleUsed (target) {
     const handle  = this.get('handle')
     const element = this.get('element')
 
@@ -341,7 +341,7 @@ export default class DragSortItem extends Component {
 
   // ----- Observers -----
   @observes('shouldShowPlaceholderBefore')
-  setPlaceholderBefore() {
+  setPlaceholderBefore () {
     // The delay is necessary for HTML class to update with a delay.
     // Otherwise, dragging is finished immediately.
     next(() => {
@@ -354,7 +354,7 @@ export default class DragSortItem extends Component {
   }
 
   @observes('shouldShowPlaceholderAfter')
-  setPlaceholderAfter() {
+  setPlaceholderAfter () {
     // The delay is necessary for HTML class to update with a delay.
     // Otherwise, dragging is finished immediately.
     next(() => {

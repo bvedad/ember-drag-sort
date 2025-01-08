@@ -1,10 +1,10 @@
-import { classNameBindings, layout as templateLayout } from '@ember-decorators/component';
-import { observes } from '@ember-decorators/object';
-import { inject as service } from '@ember/service';
-import { reads, not } from '@ember/object/computed';
+import { classNameBindings, layout as templateLayout } from '@ember-decorators/component'
+import { observes } from '@ember-decorators/object'
+import { inject as service } from '@ember/service'
+import { reads, not } from '@ember/object/computed'
 // ----- Ember modules -----
 import Component from '@ember/component'
-import { get, computed } from '@ember/object';
+import { get, computed } from '@ember/object'
 import {next} from '@ember/runloop'
 import { A } from '@ember/array'
 
@@ -74,7 +74,7 @@ export default class DragSortList extends Component {
 
   // ----- Computed properties -----
   @computed('dragSort.{isDragging,group}', 'group')
-  get isDragging() {
+  get isDragging () {
     const isDragging       = this.get('dragSort.isDragging')
     const group            = this.get('group')
     const groupFromService = this.get('dragSort.group')
@@ -83,7 +83,7 @@ export default class DragSortList extends Component {
   }
 
   @computed('isDragging', 'items', 'targetList')
-  get isDraggingOver() {
+  get isDraggingOver () {
     const isDragging = this.get('isDragging')
     const items      = this.get('items')
     const targetList = this.get('targetList')
@@ -92,7 +92,7 @@ export default class DragSortList extends Component {
   }
 
   @computed('isDragging', 'isEmpty', 'isOnlyElementDragged')
-  get isExpanded() {
+  get isExpanded () {
     const isDragging           = this.get('isDragging')
     const isEmpty              = this.get('isEmpty')
     const isOnlyElementDragged = this.get('isOnlyElementDragged')
@@ -104,14 +104,14 @@ export default class DragSortList extends Component {
   isExpanded2;
 
   @computed('items.[]')
-  get isEmpty() {
+  get isEmpty () {
     const count = this.get('items.length')
 
     return !count
   }
 
   @computed('items.length', 'items', 'sourceList', 'sourceIndex')
-  get isOnlyElementDragged() {
+  get isOnlyElementDragged () {
     const count       = this.get('items.length')
     const items       = this.get('items')
     const sourceList  = this.get('sourceList')
@@ -125,7 +125,7 @@ export default class DragSortList extends Component {
   }
 
   // ----- Overridden methods -----
-  dragEnter(event) {
+  dragEnter (event) {
     // Ignore irrelevant drags
     if (!this.get('dragSort.isDragging')) return
 
@@ -148,7 +148,7 @@ export default class DragSortList extends Component {
     }
   }
 
-  dragOver(event) {
+  dragOver (event) {
     // This event is only used for placing the dragged element into the end of a horizontal list
     if (this.get('isVertical')) {
       return
@@ -171,7 +171,7 @@ export default class DragSortList extends Component {
   }
 
   // ----- Custom methods -----
-  dragEntering(event) {
+  dragEntering (event) {
     const group        = this.get('group')
     const items        = this.get('items')
     const dragSort     = this.get('dragSort')
@@ -187,7 +187,7 @@ export default class DragSortList extends Component {
     dragSort.dragEntering({group, items, isHorizontal, targetArgs, targetIndex})
   }
 
-  getClosestHorizontalIndex(event) {
+  getClosestHorizontalIndex (event) {
     // Calculate which item is closest and make that the target
     const itemsNodeList      = this.get('element').querySelectorAll('.dragSortItem')
     const draggableItems     = A(Array.prototype.slice.call(itemsNodeList))
@@ -199,7 +199,7 @@ export default class DragSortList extends Component {
     return closestItem ? positions.indexOf(closestItem) : 0
   }
 
-  forceDraggingOver() {
+  forceDraggingOver () {
     const determineForeignPositionAction = this.get('determineForeignPositionAction')
 
     const group       = this.get('group')
@@ -224,7 +224,7 @@ export default class DragSortList extends Component {
     dragSort.draggingOver({group, index, items, isDraggingUp})
   }
 
-  isDraggingOverHorizontal(event) {
+  isDraggingOverHorizontal (event) {
     const dragSort     = this.get('dragSort')
     const group        = this.get('group')
     const items        = this.get('items')
@@ -236,7 +236,7 @@ export default class DragSortList extends Component {
 
   // ----- Observers -----
   @observes('isExpanded')
-  setIsExpanded2() {
+  setIsExpanded2 () {
     // The delay is necessary for HTML class to update with a delay.
     // Otherwise, dragging is finished immediately.
     next(() => {
